@@ -24,7 +24,7 @@ cd raspberry_pi
 docker-compose-up
 ```
 
-Right now you should be able to access the sample webserver app, by using this URL from a level of any devices from the same Husarnet network the sample web server:
+Right now you should be able to access the sample webserver app, by using this URL from a level of any devices from the same Husarnet network the sample web server was joined to:
 
 ```
 http://my-website:8080/
