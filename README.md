@@ -1,4 +1,6 @@
-# nginx-reverse-proxy-docker
+<!-- # nginx-reverse-proxy-docker -->
+
+# Using Husarnet Docker Image
 
 In the recent blog posts we presented how to embed Husarnet Client inside a Docker container. This solution is fine, however has a few drawbacks like:
 - you need to modify your existing containers
@@ -8,22 +10,25 @@ To overcome those issues we introduce an official [Husarnet Docker Image](https:
 
 ![Husarnet Docker Contatainer VPN sidecar](docs/cover-image.png)
 
+## Introducing Husarnet Sidecar Docker Image
 
+TODO: napisać więcej o co w tym wszystkim chodzi i jak to działa (że w `docker-compose.yml` w definicji kontenera Husarnetu daje się listę innych kontenerów, którym udostępnia się sieć)
 
-## use cases
-
-### 1. saving IP addresses space
-
-you need only one public IP address associated with your reverse proxy server. Other services can be hosted even from your local LAN network, even if you have dynamic IP.
-
-### 2. running a website from your laptop / Raspberry Pi
-
-### 3. security - your application servers do not need to has public or static IP at all
-
+...
 
 ## Example system architecture
 
 <todo: plik draw.io gdzie narysujemy jak to działa>
+
+Benefits:
+
+#### 1. saving IP addresses space
+
+you need only one public IP address associated with your reverse proxy server. Other services can be hosted even from your local LAN network, even if you have dynamic IP.
+
+#### 2. running a website from your laptop / Raspberry Pi
+
+#### 3. security - your application servers do not need to has public or static IP at all
 
 ## Install Docker and Docker Compose
 
@@ -45,7 +50,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-## On laptop / Raspberry Pi
+## Installing laptop / Raspberry Pi part (sample web server)
 
 1. Clone and create `.env` file
 
@@ -62,10 +67,9 @@ HOSTNAME=my-vps
 JOINCODE=fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/xxxxxxxxxxxxxxxxxxxxxx
 ```
 
-
 3. And start a container:
 
-```
+```bash
 docker-compose up
 ```
 
@@ -88,7 +92,7 @@ husarnet_1   | Husarnet IP address: fc94:f4b2:9ffc:c3a5:93b4:b873:9ae1:67da
 
 save the Husarnet IPv6 address
 
-## On VPS
+## Installing VPS Part (nginx proxy)
 
 1. Clone and create `.env` file
 
@@ -133,12 +137,15 @@ In your favourite browser you can now access your website working on Raspberry P
 
 
 
+## Summary
 
+Using Husarnet Container next to your existing container is a smart move because:
+- you have clean & elegant architecture
+- ...
 
+We hope you will find this article helpful.
 
-
-
-
+We would be happy to discuss the topic covered in this blog post on Husarnet Community Forum.
 
 
 ----------------------
