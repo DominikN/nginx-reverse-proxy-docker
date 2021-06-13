@@ -16,21 +16,34 @@ TODO: napisać więcej o co w tym wszystkim chodzi i jak to działa (że w `dock
 
 ...
 
-## Example system architecture
+## Example use case for Husarnet Container
 
-<todo: plik draw.io gdzie narysujemy jak to działa>
+### System architecture 
 
-Benefits:
+![Example application architecture - reverse proxy on cheap VPS redirecting a traffic to Raspberry Pi / laptop with no public IP](docs/architecture.png)
 
-#### 1. saving IP addresses space
+As an example use case for a Husarnet Container we created a simple demo project showing you how to host a public available website from anything in your LAN, without port forwarding or static IP.
 
-you need only one public IP address associated with your reverse proxy server. Other services can be hosted even from your local LAN network, even if you have dynamic IP.
+You just need to connect a cheap VPS with a public IP address with your Raspberry Pi / laptop by using Husarnet Container.
 
-#### 2. running a website from your laptop / Raspberry Pi
+Webserver is hosting a sample demo webserver container provided by Google, but in this place you can put Wordpress, or your static website hosted by Nginx webserver.
 
-#### 3. security - your application servers do not need to has public or static IP at all
+In `raspberry_pi` and `vps` folders there are two `docker-compose.yml` files allowing you to start the project on:
 
-## Install Docker and Docker Compose
+- `raspberry_pi`: laptop / Raspberry Pi / PC / toaster running Linux - run this on anything in your LAN.
+- `vps`: run that part on VPS / anything with a Public IP address.
+
+Why we might want to host a website on RaspberryPi / laptop / PC?
+
+- **saving IP addresses space**
+
+    you need only one public IP address associated with your reverse proxy server. Other services can be hosted even from your local LAN network, even if you have dynamic IP.
+
+- **security**
+
+    your application servers do not need to has public or static IP at all
+
+### Install Docker and Docker Compose
 
 Do that both on your laptop and on VPS.
 
@@ -50,7 +63,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-## Installing laptop / Raspberry Pi part (sample web server)
+### Installing laptop / Raspberry Pi part (sample web server)
 
 1. Clone and create `.env` file
 
@@ -92,7 +105,7 @@ husarnet_1   | Husarnet IP address: fc94:f4b2:9ffc:c3a5:93b4:b873:9ae1:67da
 
 save the Husarnet IPv6 address
 
-## Installing VPS Part (nginx proxy)
+### Installing VPS Part (nginx proxy)
 
 1. Clone and create `.env` file
 
@@ -129,7 +142,7 @@ server {
 docker-compose up
 ```
 
-## Testing Reverse Proxy Server
+### Testing Reverse Proxy Server
 
 In your favourite browser you can now access your website working on Raspberry Pi by using a proxy server public IP address and port `8089` (can be changed in `/vps/docker-compose.yml` file).
 
