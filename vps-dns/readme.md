@@ -1,4 +1,4 @@
-# RUN THIS ON YOUR LAPTOP / RASPBERRY PI
+# RUN THIS ON VPS
 
 ## create `.env` file
 
@@ -20,7 +20,7 @@ You will find your Join Code at **https://app.husarnet.com
 ## run the container
 
 ```bash
-cd raspberry_pi
+cd vps-dns
 docker-compose-up
 ```
 

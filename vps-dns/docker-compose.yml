@@ -6,7 +6,7 @@ services:
         restart: always
         volumes:
             - ./dnsmasq.conf:/etc/dnsmasq.conf
-        # ports:
+        # ports:    #configuration moved to service:husarnet
         #     - "57:57"
         cap_add:
             - NET_ADMIN
@@ -17,9 +17,9 @@ services:
     my-proxy:
         build: ./
         restart: always
-        # ports:
+        # ports:    #configuration moved to service:husarnet
         #     - "8089:8089"
-        # expose:
+        # expose:   
         #     - 8080
         stdin_open: true # docker run -i
         tty: true        # docker run -t
@@ -46,8 +46,4 @@ services:
             - /dev/net/tun
         env_file: 
             - ./.env  # create .env file in the same folder as Dockerfile and specify HOSTNAME and JOINCODE there
-        # network_mode: service:my-dns
-        # network_mode: service:husarnet  # This is the most important line in this setup. This will put the Husarnet Client in the same network namespace as your app (in this example: my-server)
-            # - "service:my-dns"
-        # network_mode: service:my-dns
         
