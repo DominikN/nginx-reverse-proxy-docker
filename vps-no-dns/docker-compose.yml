@@ -3,18 +3,18 @@ version: '2.2'
 services:
     my-proxy:
         build: ./
-        restart: always
-        ports:
-            - "8089:8089"
-        expose:
-            - 8089
-        stdin_open: true # docker run -i
-        tty: true        # docker run -t
-        # command: service nginx reload
+        restart: unless-stopped
+
+        # port definitions need to be moved to the 'husarnet' service
+        network_mode: service:husarnet
+        depends_on:
+            - "husarnet"
 
     husarnet:
         image: husarnet/husarnet
         restart: unless-stopped
+        ports:
+            - "8080:80" # from my-proxy
         volumes:
             - /var/lib/husarnet  # This will persist your Husarnet Client keys, thus IP of the container will be stable/the same between (re)boots
         sysctls:
@@ -25,4 +25,3 @@ services:
             - /dev/net/tun
         env_file: 
             - ./.env  # create .env file in the same folder as Dockerfile and specify HOSTNAME and JOINCODE there
-        network_mode: service:my-proxy  # This is the most important line in this setup. This will put the Husarnet Client in the same network namespace as your app (in this example: my-server)
