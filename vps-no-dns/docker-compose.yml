@@ -14,7 +14,7 @@ services:
         image: husarnet/husarnet
         restart: unless-stopped
         ports:
-            - "8080:80" # from my-proxy
+            - "80:8080" # from my-proxy
         volumes:
             - /var/lib/husarnet  # This will persist your Husarnet Client keys, thus IP of the container will be stable/the same between (re)boots
         sysctls:
