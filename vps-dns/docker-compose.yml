@@ -6,26 +6,22 @@ services:
         restart: always
         volumes:
             - ./dnsmasq.conf:/etc/dnsmasq.conf
-        # ports:    #configuration moved to service:husarnet
-        #     - "57:57"
+            - ./hosts:/etc/hosts
         cap_add:
             - NET_ADMIN
+
         network_mode: service:husarnet
         depends_on:
             - "husarnet"
 
     my-proxy:
         build: ./
-        restart: always
-        # ports:    #configuration moved to service:husarnet
-        #     - "8089:8089"
-        # expose:   
-        #     - 8080
-        stdin_open: true # docker run -i
-        tty: true        # docker run -t
-        # command: service nginx reload
+        restart: unless-stopped
         volumes:
             - ./resolv.conf:/etc/resolv.conf
+            - ./hosts:/etc/hosts
+
+        # port definitions need to be moved to the 'husarnet' service
         network_mode: service:husarnet
         depends_on:
             - "husarnet"
@@ -34,10 +30,10 @@ services:
         image: husarnet/husarnet
         restart: unless-stopped
         ports:
-            - "8089:8089" # from my-proxy
-            - "57:57" # from my-dns
+            - "80:8080" # from my-proxy
         volumes:
             - /var/lib/husarnet  # This will persist your Husarnet Client keys, thus IP of the container will be stable/the same between (re)boots
+            - ./hosts:/etc/hosts
         sysctls:
             - net.ipv6.conf.all.disable_ipv6=0  # Husarnet is using IPv6 for the internal connections
         cap_add:
@@ -46,4 +42,3 @@ services:
             - /dev/net/tun
         env_file: 
             - ./.env  # create .env file in the same folder as Dockerfile and specify HOSTNAME and JOINCODE there
-        
