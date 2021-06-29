@@ -9,6 +9,7 @@ services:
             - ./hosts:/etc/hosts
         cap_add:
             - NET_ADMIN
+        entrypoint: dnsmasq -k -d
 
         network_mode: service:husarnet
         depends_on:
